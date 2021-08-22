@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MDSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_Address">
+          <Key>
+            <PropertyRef Name="n_AddressNo" />
+          </Key>
+          <Property Name="n_AddressNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="n_ClientNo" Type="int" />
+          <Property Name="s_Address" Type="varchar" MaxLength="255" />
+          <Property Name="s_Email" Type="varchar" MaxLength="50" />
+          <Property Name="s_Contact" Type="varchar" MaxLength="50" />
+          <Property Name="s_PAN" Type="varchar" MaxLength="50" />
+          <Property Name="s_City" Type="varchar" MaxLength="50" />
+          <Property Name="s_State" Type="varchar" MaxLength="50" />
+          <Property Name="s_PinCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tb_Client">
+          <Key>
+            <PropertyRef Name="n_ClientNo" />
+          </Key>
+          <Property Name="n_ClientNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="s_ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="s_ClientName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__tb_Addres__n_Cli__38996AB5">
+          <End Role="tb_Client" Type="Self.tb_Client" Multiplicity="0..1" />
+          <End Role="tb_Address" Type="Self.tb_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Client">
+              <PropertyRef Name="n_ClientNo" />
+            </Principal>
+            <Dependent Role="tb_Address">
+              <PropertyRef Name="n_ClientNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_AddRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Ps_ClientCode" Type="varchar" Mode="In" />
+          <Parameter Name="Ps_ClientName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pn_ClientNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ReadRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pn_ClientNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pn_ClientNo" Type="int" Mode="In" />
+          <Parameter Name="Ps_ClientName" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="MDSModelStoreContainer">
+          <EntitySet Name="tb_Address" EntityType="Self.tb_Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Client" EntityType="Self.tb_Client" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tb_Addres__n_Cli__38996AB5" Association="Self.FK__tb_Addres__n_Cli__38996AB5">
+            <End Role="tb_Client" EntitySet="tb_Client" />
+            <End Role="tb_Address" EntitySet="tb_Address" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MDSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_Address">
+          <Key>
+            <PropertyRef Name="n_AddressNo" />
+          </Key>
+          <Property Name="n_AddressNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="n_ClientNo" Type="Int32" />
+          <Property Name="s_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="s_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="s_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="s_PAN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="s_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="s_State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_Client" Relationship="Self.FK__tb_Addres__n_Cli__38996AB5" FromRole="tb_Address" ToRole="tb_Client" />
+          <Property Name="s_PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_Client">
+          <Key>
+            <PropertyRef Name="n_ClientNo" />
+          </Key>
+          <Property Name="n_ClientNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="s_ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="s_ClientName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_Address" Relationship="Self.FK__tb_Addres__n_Cli__38996AB5" FromRole="tb_Client" ToRole="tb_Address" />
+        </EntityType>
+        <Association Name="FK__tb_Addres__n_Cli__38996AB5">
+          <End Role="tb_Client" Type="Self.tb_Client" Multiplicity="0..1" />
+          <End Role="tb_Address" Type="Self.tb_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Client">
+              <PropertyRef Name="n_ClientNo" />
+            </Principal>
+            <Dependent Role="tb_Address">
+              <PropertyRef Name="n_ClientNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MDSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_Address" EntityType="Self.tb_Address" />
+          <EntitySet Name="tb_Client" EntityType="Self.tb_Client" />
+          <AssociationSet Name="FK__tb_Addres__n_Cli__38996AB5" Association="Self.FK__tb_Addres__n_Cli__38996AB5">
+            <End Role="tb_Client" EntitySet="tb_Client" />
+            <End Role="tb_Address" EntitySet="tb_Address" />
+          </AssociationSet>
+          <FunctionImport Name="sp_ClientMaster" ReturnType="Collection(MDSModel.sp_ClientMaster_Result)">
+            <Parameter Name="Ps_Mode" Mode="In" Type="String" />
+            <Parameter Name="Pn_ClientNo" Mode="In" Type="Int32" />
+            <Parameter Name="Ps_ClientCode" Mode="In" Type="String" />
+            <Parameter Name="Ps_ClientName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddRecord">
+            <Parameter Name="Ps_ClientCode" Mode="In" Type="String" />
+            <Parameter Name="Ps_ClientName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteRecord">
+            <Parameter Name="Pn_ClientNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ReadRecord" EntitySet="tb_Client" ReturnType="Collection(MDSModel.tb_Client)">
+            <Parameter Name="Pn_ClientNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateRecord">
+            <Parameter Name="Pn_ClientNo" Mode="In" Type="Int32" />
+            <Parameter Name="Ps_ClientName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_ClientMaster_Result">
+          <Property Type="Int32" Name="n_ClientNo" Nullable="false" />
+          <Property Type="String" Name="s_ClientCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="s_ClientName" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="sp_ReadRecord_Result">
+          <Property Type="Int32" Name="n_ClientNo" Nullable="false" />
+          <Property Type="String" Name="s_ClientCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="s_ClientName" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MDSModelStoreContainer" CdmEntityContainer="MDSEntities">
+          <EntitySetMapping Name="tb_Address">
+            <EntityTypeMapping TypeName="MDSModel.tb_Address">
+              <MappingFragment StoreEntitySet="tb_Address">
+                <ScalarProperty Name="s_PinCode" ColumnName="s_PinCode" />
+                <ScalarProperty Name="n_AddressNo" ColumnName="n_AddressNo" />
+                <ScalarProperty Name="n_ClientNo" ColumnName="n_ClientNo" />
+                <ScalarProperty Name="s_Address" ColumnName="s_Address" />
+                <ScalarProperty Name="s_Email" ColumnName="s_Email" />
+                <ScalarProperty Name="s_Contact" ColumnName="s_Contact" />
+                <ScalarProperty Name="s_PAN" ColumnName="s_PAN" />
+                <ScalarProperty Name="s_City" ColumnName="s_City" />
+                <ScalarProperty Name="s_State" ColumnName="s_State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Client">
+            <EntityTypeMapping TypeName="MDSModel.tb_Client">
+              <MappingFragment StoreEntitySet="tb_Client">
+                <ScalarProperty Name="n_ClientNo" ColumnName="n_ClientNo" />
+                <ScalarProperty Name="s_ClientCode" ColumnName="s_ClientCode" />
+                <ScalarProperty Name="s_ClientName" ColumnName="s_ClientName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="MDSModel.tb_Client">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="MDSModel.Store.sp_AddRecord" >
+                  <ScalarProperty Name="s_ClientName" ParameterName="Ps_ClientName" />
+                  <ScalarProperty Name="s_ClientCode" ParameterName="Ps_ClientCode" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="MDSModel.Store.sp_UpdateRecord" >
+                  <ScalarProperty Name="s_ClientName" ParameterName="Ps_ClientName" Version="Current" />
+                  <ScalarProperty Name="n_ClientNo" ParameterName="Pn_ClientNo" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="MDSModel.Store.sp_DeleteRecord" >
+                  <ScalarProperty Name="n_ClientNo" ParameterName="Pn_ClientNo" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddRecord" FunctionName="MDSModel.Store.sp_AddRecord" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteRecord" FunctionName="MDSModel.Store.sp_DeleteRecord" />
+          <FunctionImportMapping FunctionImportName="sp_ReadRecord" FunctionName="MDSModel.Store.sp_ReadRecord">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_UpdateRecord" FunctionName="MDSModel.Store.sp_UpdateRecord" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
